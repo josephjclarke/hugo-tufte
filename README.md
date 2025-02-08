@@ -2,6 +2,8 @@
 
 [![Contributor Covenant](https://img.shields.io/badge/Contributor%20Covenant-2.0-4baaaa.svg)](code_of_conduct.md) [![Test Build](https://github.com/loikein/hugo-tufte/actions/workflows/test-build.yml/badge.svg)](https://github.com/loikein/hugo-tufte/actions/workflows/test-build.yml) [![Netlify Status](https://api.netlify.com/api/v1/badges/0a3e11e2-0209-40bb-8570-c3eb9b8471dc/deploy-status)](https://app.netlify.com/sites/huto-tufte/deploys)
 
+This is my personal fork of the hugo tufte theme.
+
 ## History of this project
 
 Hugo-Tufte is a minimalist blog-like theme for the
