@@ -3,29 +3,31 @@
 <div id="layout" class="pure-g">
 <article class="pure-u-1">
 
-{{ partial "brand.html" . }}
 {{ partial "content.header.html" . }}
+{{ partial "nav.html" . }}
 
-<section class="list-page">
-{{ range .Data.Pages.GroupByDate "2006" }}
-  <ul>
-  <li class="year">{{ .Key }} ({{ len .Pages }})</li>
-    {{ range .Pages.GroupByDate "January" }}
-    <ul>
-    <li>{{ .Key }} ({{ len .Pages }})</li>
-      {{ range .Pages }}
-      <ul>
-      <li>
-        <span class="list-date">{{ .Date.Format "Jan 2" }} &middot;</span>
-        <a href="{{ .RelPermalink }}">{{.Title}}</a>
-      </li>
-      </ul>
-      {{ end }}
-    </li>
-    </ul>
-    {{ end }}
-  </ul>
+<section class="page-list">
+{{ $pgFilter1 := where .Site.RegularPages "Draft" false }}
+{{ $pgFilter2 := where .Site.RegularPages "Params.date" "!=" nil }}
+{{ $pgFilter := $pgFilter1 | intersect $pgFilter2 }}
+{{ range (.Paginate $pgFilter).Pages }}
+  <h2 class="content-title">
+  {{ if .IsNode }}
+  <a href="{{ .Permalink }}">{{ .Title}}</a>
+  {{ else }}
+  <a href="{{ .RelPermalink }}">{{ .Title }}{{ if .Draft }}&nbsp;:: Draft{{end}}</a>
   {{ end }}
+  </h2>
+  {{ .Date.Format "Jan 2 2006" }}
+  
+  {{ if .Description }}
+  <p>{{ .Description }}</p>
+  {{ else }}
+  {{ if .Site.Params.showSummary }}
+  <p>{{ truncate 140 .Summary }}</p>
+  {{ end }}
+  {{ end }}
+{{ end }}
 </section>
 
 {{ partial "footer.html" . }}
